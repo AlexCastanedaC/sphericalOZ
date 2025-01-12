@@ -12,6 +12,7 @@ function simplePicard(x::Vector{Float64}, N::Int64, gamma::Vector{Float64}, u::V
     
     # Calculating Legendre coefficients for c_dir
     c_l = leg_coeff_arr(x, c_dir, legendrePol)
+ 
     l = collect(0:length(c_l)-1)
     
     # Applying OZ equation to obtain gamma_l
@@ -70,16 +71,16 @@ push!(gamma, initial_gamma)
 i = 0
 tol_Ng = 10.0
 l=0# Append new values to gamma using simple_picard
-while tol_Ng > 1e-5
-    for j in 1:3
+while tol_Ng > 1e-6
+    for j in 1:5
         push!(gamma, simplePicard(x, N, gamma[i + j], u, bridge,legendrePol))	
     end
    
     # Extend g with the last three elements of gamma
-    append!(g, gamma[end-2:end])
+    append!(g, gamma[end-4:end])
    # println(g[2])
     # Compute differences d_n
-    d_n = [g[i + k] .- gamma[i + k] for k in 1:3] 
+    d_n = [g[i + k] .- gamma[i + k] for k in 1:5] 
    # println(d_n)
     # Compute D and d_vec
     D, d_vec = compute_D(d_n, x)
@@ -90,7 +91,7 @@ while tol_Ng > 1e-5
 
     # Calculate sum_g
     sum_g = zeros(size(g[end]))
-    for j in 1:2
+    for j in 1:4
         sum_g .+= c[j] .* g[end-j]
     end
 
@@ -107,7 +108,7 @@ while tol_Ng > 1e-5
     gamma[end] = f_n1
 
     # Increment counters
-    i += 3
+    i += 5
     l += 1
 println("l = $l, Tol = $tol_Ng")
 end

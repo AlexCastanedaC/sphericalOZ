@@ -1,16 +1,16 @@
 # Radius of the sphere
 R = 100.0
 # Number of particles
-N = 160  
+N = 10  
 # x = cos(theta)
-x = collect(range(-1.0, 1.0, length = 80001))
+x = collect(range(-1.0, 1.0, length = 40001))
 # Calculate distance r
 r = R .* (2.0 .- 2.0 .* x).^(0.5)
 
 # we will now evaluate the Legendre Polynomials using our x values
 include("legendreExpansion.jl")
 using .legendreExpansion.legendrePolynomials
-n = 160 
+n = 100 
 lP = lp_gen_eval(n, x)
 
 # now we will define our yukawa potential
@@ -51,7 +51,7 @@ using .sphericalOZ
 gamma_0 = zeros(length(x))
 #gamma_0_coeff = extract_floats_from_file("N005.dat")
 #print(gamma_0_coeff)
-w = collect(range(0.01,1,length=51))
+w = collect(range(0.1,1,length=23))
 
 for (i,w_val) in pairs(w)
 gamma = ng_solve(x, N, w_val * u, bridge,gamma_0, lP)
