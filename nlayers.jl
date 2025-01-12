@@ -186,7 +186,7 @@ for i in 1:n, j in 1:n
 	reverse!(g_theta[i,j,:])
 end
 
-reverse!(x)
+#reverse!(x)
 theta = acos.(x) ./ pi .* 180.0
 
 using Plots
@@ -197,7 +197,7 @@ for i in 1:n, j in 1:n
 	plot!(theta,g_theta[i,j,:]; ls=:auto, label="g$i$j")
 end
 
-plot!(;plot_title = "PCF", legend=:topright)
+plot!(;plot_title = "PCF", legend=:topright,dpi = 300)
 
 savefig("pcf_2layers.png")
 
