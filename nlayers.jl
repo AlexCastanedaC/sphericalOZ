@@ -1,8 +1,8 @@
 include("testFunctions.jl")
 using .testFunctions
 
-r_layers = [100.0, 110.0]
-num_per_layer = [10.0, 12.0]
+r_layers = [100.0, 150.0]
+num_per_layer = [10.0, 15.0]
 
 # number of spherical layers
 n = length(r_layers)
